@@ -1,8 +1,8 @@
-import {createSlice , createAsyncThunk} from "@reduxjs/toolkit"
-import axios  from "axios";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 const initialState = {
   loading: false,
-  user: [],
+  users: [],
   error: "",
 };
 
@@ -10,7 +10,7 @@ const initialState = {
 export const fetchUsers = createAsyncThunk("user/fetchUsers", () => {
   return axios
     .get("https://jsonplaceholder.typicode.com/users")
-    .then((response) => response.data.map((user) => user.id));
+    .then((response) => response.data);
 });
 
 const userSlice = createSlice({
@@ -23,15 +23,15 @@ const userSlice = createSlice({
 
     builder.addCase(fetchUsers.fulfilled, (state, action) => {
       (state.loading = false),
-        (state.user = action.payload),
+        (state.users = action.payload),
         (state.error = "");
     }),
       builder.addCase(fetchUsers.rejected, (state, action) => {
         (state.loading = false),
-          (state.user = []),
+          (state.users = []),
           (state.error = action.error.message);
       });
   },
 });
 
-export default  userSlice.reducer;
+export default userSlice.reducer;

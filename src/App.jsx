@@ -7,7 +7,7 @@ function App() {
     <div>
       <IcecreameView />
       <CakeView />
-      {/* <UserView /> */}
+      <UserView />
     </div>
   );
 }
